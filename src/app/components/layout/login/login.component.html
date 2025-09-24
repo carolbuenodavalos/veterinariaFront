@@ -1,28 +1,28 @@
-
-<div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-4">
-        <div class="card mt-5">
-          <div class="card-body text-center">
-            <h3 class="mb-4">VetSys</h3>
-            <img src="assets/images/logo-vet.png" alt="Logo" class="img-fluid mb-4" width="100">
-  
-            <mdb-form-control>
-              <input [(ngModel)]="login.username" mdbInput type="text" id="username" class="form-control mb-3" />
-              <label mdbLabel class="form-label" for="username">Usuário</label>
-            </mdb-form-control>
-  
-            <mdb-form-control>
-              <input [(ngModel)]="login.password" mdbInput type="password" id="password" 
-                     class="form-control mb-3" (keyup.enter)="logar()" />
-              <label mdbLabel class="form-label" for="password">Senha</label>
-            </mdb-form-control>
-  
-            <button (click)="logar()" class="btn btn-primary btn-block" mdbRipple>
-              Entrar
-            </button>
-          </div>
-        </div>
+<div class="login-wrapper">
+  <div class="card login-card">
+    <div class="left-accent" aria-hidden="true"></div>
+    <div class="card-body text-center login-card-body">
+      <div class="login-brand mb-4" aria-label="VetSys logo">
+        <!-- ícone SVG de pata -->
+        <svg class="paw-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64" role="img" aria-label="Ícone VetSys">
+          <path fill="currentColor" d="M256 224c-61.9 0-112 50.1-112 112 0 61.9 50.1 112 112 112s112-50.1 112-112c0-61.9-50.1-112-112-112zm-160-64c35.3 0 64-28.7 64-64S131.3 32 96 32 32 60.7 32 96s28.7 64 64 64zm352 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zM160 64c22.1 0 40-17.9 40-40S182.1-16 160-16s-40 17.9-40 40 17.9 40 40 40zm192 0c22.1 0 40-17.9 40-40s-17.9-40-40-40-40 17.9-40 40 17.9 40 40 40z"/>
+        </svg>
       </div>
+
+      <mdb-form-control>
+        <input [(ngModel)]="login.username" mdbInput type="text" id="username" class="form-control mb-3" />
+        <label mdbLabel class="form-label" for="username">Usuário</label>
+      </mdb-form-control>
+
+      <mdb-form-control>
+        <input [(ngModel)]="login.password" mdbInput type="password" id="password" 
+               class="form-control mb-3" (keyup.enter)="logar()" />
+        <label mdbLabel class="form-label" for="password">Senha</label>
+      </mdb-form-control>
+
+      <button (click)="logar()" class="btn btn-primary btn-block" mdbRipple>
+        Entrar
+      </button>
     </div>
   </div>
+</div>
