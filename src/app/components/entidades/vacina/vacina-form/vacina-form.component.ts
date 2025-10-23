@@ -46,21 +46,21 @@ export class VacinaFormComponent {
         this.vacina = vacina;
       },
       error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
     });
   }
 
   save() {
     if (this.vacina.id! > 0) {
-      this.vacinaService.update(this.vacina, this.vacina.id!).subscribe({
+      this.vacinaService.update(this.vacina.id!, this.vacina).subscribe({
         next: (mensagem) => {
           notifySuccess(mensagem);
           this.roteador.navigate(['admin/vacinas']);
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     } else {
@@ -71,7 +71,7 @@ export class VacinaFormComponent {
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     }
@@ -83,7 +83,7 @@ export class VacinaFormComponent {
         this.listaAnimais = lista;
       },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
     });
   }

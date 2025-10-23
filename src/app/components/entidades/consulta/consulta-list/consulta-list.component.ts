@@ -1,4 +1,4 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Consulta } from '../../../../models/consulta';
 import { ConsultaService } from '../../../../services/consulta';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,9 @@ export class ConsultaListComponent {
   pesquisa: string = "";
   consultaEdit!: Consulta;
 
+  @Input("modoModal") modoModal: boolean = false;
+  @Output("meuEvento") meuEvento = new EventEmitter();
+
   consultaService = inject(ConsultaService);
   
   @ViewChild("modalConsultaForm") modalConsultaForm!: TemplateRef<any>;
@@ -38,7 +41,7 @@ export class ConsultaListComponent {
         this.lista = listaRetornada;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -57,7 +60,7 @@ export class ConsultaListComponent {
             this.findAll();
           },
           error: (erro) => {
-            notifyError(erro.error);
+            notifyError(erro);
           }
         });
       }
@@ -70,7 +73,7 @@ export class ConsultaListComponent {
         this.lista = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }
@@ -88,5 +91,10 @@ export class ConsultaListComponent {
   meuEventoTratamento(mensagem: any) {
     this.findAll();
     this.modalRef.close();
+  }
+
+  selecionar(consulta: Consulta) {
+    this.meuEvento.emit(consulta);
+    try { this.modalRef.close(); } catch (e) { }
   }
 }

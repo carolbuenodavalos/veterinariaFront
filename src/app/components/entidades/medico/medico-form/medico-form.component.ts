@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Medico } from '../../../../models/medico';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class MedicoFormComponent {
   @Input() medico: Medico = new Medico();
+  @Output() meuEvento = new EventEmitter<any>();
 
   rotaAtiva = inject(ActivatedRoute);
   roteador = inject(Router);
@@ -34,7 +35,7 @@ export class MedicoFormComponent {
         this.medico = medico;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -45,9 +46,10 @@ export class MedicoFormComponent {
         next: (mensagem) => {
           notifySuccess(mensagem);
           this.roteador.navigate(['admin/medicos']);
+          this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     } else {
@@ -55,9 +57,10 @@ export class MedicoFormComponent {
         next: (mensagem) => {
           notifySuccess(mensagem);
           this.roteador.navigate(['admin/medicos']);
+          this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     }

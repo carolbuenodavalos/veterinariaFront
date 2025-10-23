@@ -35,7 +35,7 @@ export class TutorFormComponent {
         this.tutor = tutor;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -46,9 +46,10 @@ export class TutorFormComponent {
         next: (mensagem) => {
           notifySuccess(mensagem);
           this.roteador.navigate(['admin/tutores']);
+          this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     } else {
@@ -56,9 +57,10 @@ export class TutorFormComponent {
         next: (mensagem) => {
           notifySuccess(mensagem);
           this.roteador.navigate(['admin/tutores']);
+          this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     }

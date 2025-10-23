@@ -1,4 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Animal } from '../../../../models/animal';
 import { AnimalService } from '../../../../services/animal';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-animais-list',
   standalone: true,
-  imports: [FormsModule, AnimalFormComponent, MdbModalModule],
+  imports: [CommonModule, FormsModule, AnimalFormComponent, MdbModalModule],
   templateUrl: './animal-list.component.html',
   styleUrl: './animal-list.component.scss',
 })
@@ -37,7 +38,7 @@ export class AnimalListComponent {
         this.lista = listaRetornada;
       },
       error: (erro) => {
-        notifyError(erro.error);
+        notifyError(erro);
       }
     });
   }
@@ -56,7 +57,7 @@ export class AnimalListComponent {
             this.findAll();
           },
           error: (erro) => {
-            notifyError(erro.error);
+            notifyError(erro);
           }
         });
       }
@@ -69,7 +70,7 @@ export class AnimalListComponent {
         this.lista = lista;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -87,5 +88,10 @@ export class AnimalListComponent {
   meuEventoTratamento(mensagem: any) {
     this.findAll();
     this.modalRef.close();
+  }
+
+  selecionar(animal: Animal) {
+    this.meuEvento.emit(animal);
+    try { this.modalRef.close(); } catch (e) { }
   }
 }

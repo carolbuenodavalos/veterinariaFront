@@ -71,7 +71,7 @@ export class VacinaListComponent {
         this.lista = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }
@@ -89,5 +89,10 @@ export class VacinaListComponent {
   meuEventoTratamento(mensagem: any) {
     this.findAll();
     this.modalRef.close();
+  }
+
+  selecionar(vacina: Vacina) {
+    this.meuEvento.emit(vacina);
+    try { this.modalRef.close(); } catch (e) { }
   }
 }

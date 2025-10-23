@@ -64,7 +64,7 @@ export class AnimalFormComponent {
         this.animal = animal;
       },
       error: (erro) => {
-          notifyError(erro.error);
+      notifyError(erro);
         }
     });
   }
@@ -78,7 +78,7 @@ export class AnimalFormComponent {
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+        notifyError(erro);
         }
       });
     } else {
@@ -89,7 +89,7 @@ export class AnimalFormComponent {
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     }
@@ -101,7 +101,7 @@ export class AnimalFormComponent {
         this.listaTutores = lista;
       },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
     });
   }
@@ -112,7 +112,7 @@ export class AnimalFormComponent {
         this.listaMedicos = lista;
       },
       error: (erro) => {
-        notifyError(erro.error);
+        notifyError(erro);
       }
     });
   }
@@ -123,7 +123,7 @@ export class AnimalFormComponent {
         this.listaVacinas = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }

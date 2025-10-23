@@ -52,7 +52,7 @@ export class ConsultaFormComponent {
         this.consulta = consulta;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -66,7 +66,7 @@ export class ConsultaFormComponent {
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     } else {
@@ -77,7 +77,7 @@ export class ConsultaFormComponent {
           this.meuEvento.emit("OK");
         },
         error: (erro) => {
-          notifyError(erro.error);
+          notifyError(erro);
         }
       });
     }
@@ -89,7 +89,7 @@ export class ConsultaFormComponent {
         this.listaAnimais = lista;
       },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
       }
     });
   }
@@ -100,7 +100,7 @@ export class ConsultaFormComponent {
         this.listaMedicos = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }

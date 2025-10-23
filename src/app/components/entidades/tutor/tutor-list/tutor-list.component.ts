@@ -1,4 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Tutor } from '../../../../models/tutor';
 import { TutorService } from '../../../../services/tutor';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tutor-list',
   standalone: true,
-  imports: [FormsModule, TutorFormComponent, MdbModalModule],
+  imports: [CommonModule, FormsModule, TutorFormComponent, MdbModalModule],
   templateUrl: './tutor-list.component.html',
   styleUrl: './tutor-list.component.scss',
 })
@@ -39,8 +40,8 @@ export class TutorListComponent {
       next: (listaRetornada) => {
         this.lista = listaRetornada;
       },
-      error: (erro) => {
-        notifyError(erro.error);
+  error: (erro) => {
+    notifyError(erro);
       }
     });
   }
@@ -59,7 +60,7 @@ export class TutorListComponent {
             this.findAll();
           },
       error: (erro) => {
-        notifyError(erro.error);
+  notifyError(erro);
           }
         });
       }
@@ -72,7 +73,7 @@ export class TutorListComponent {
         this.lista = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }
@@ -96,5 +97,12 @@ export class TutorListComponent {
   meuEventoTratamentoTutor(tutor: Tutor) { // Tipo explícito
     this.animal.tutor = tutor;
     this.modalRef.close();
+  }
+
+  selecionar(tutor: Tutor) {
+    // Quando utilizado em modo modal, emitir o tutor selecionado para o componente pai
+    this.meuEvento.emit(tutor);
+    // Fechar modal caso esteja aberto
+    try { this.modalRef.close(); } catch (e) { /* ignore if not open */ }
   }
 }

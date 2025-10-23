@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-6">
                             <div class="alinharADireita">
-                                <a (click)="new()" class="btn btn-success btn-rounded" mdbRippled>
+                                <a *ngIf="!modoModal" (click)="new()" class="btn btn-success btn-rounded" mdbRippled>
                                     <i class="fas fa-plus fa-sm"></i> Novo
                                 </a>
                             </div>
@@ -41,12 +41,17 @@
                                 <td>{{animal.especie}}</td>
                                 <td>{{animal.tutor?.nome}}</td>
                                 <td class="alinharADireita">
-                                    <a (click)="edit(animal)" class="btn btn-primary btn-rounded" mdbRippled>
-                                        <i class="fas fa-pencil fa-sm"></i>
-                                    </a>
-                                    <button (click)="delete(animal)" class="btn btn-danger btn-rounded" mdbRippled>
-                                        <i class="fas fa-trash fa-sm"></i>
+                                    <button *ngIf="modoModal" (click)="selecionar(animal)" class="btn btn-primary btn-rounded me-1" mdbRippled>
+                                        Selecionar
                                     </button>
+                                    <ng-container *ngIf="!modoModal">
+                                        <a (click)="edit(animal)" class="btn btn-primary btn-rounded" mdbRippled>
+                                            <i class="fas fa-pencil fa-sm"></i>
+                                        </a>
+                                        <button (click)="delete(animal)" class="btn btn-danger btn-rounded" mdbRippled>
+                                            <i class="fas fa-trash fa-sm"></i>
+                                        </button>
+                                    </ng-container>
                                 </td>
                             </tr>
                             }

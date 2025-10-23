@@ -1,39 +1,36 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Vacina } from '../models/vacina';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class VacinaService {
-  http = inject(HttpClient);
-  API = 'http://localhost:8080/api/vacina';
-
-  constructor() { }
+  private API = '/api/vacina';
+  constructor(private http: HttpClient) {}
 
   findAll(): Observable<Vacina[]> {
-    return this.http.get<Vacina[]>(this.API + '/findAll');
+    return this.http.get<Vacina[]>(this.API);
   }
-
   findById(id: number): Observable<Vacina> {
-    return this.http.get<Vacina>(this.API + '/findById/' + id);
+    return this.http.get<Vacina>(`${this.API}/${id}`);
   }
-
   findByNome(nome: string): Observable<Vacina[]> {
-    let par = new HttpParams().set('nome', nome);
-    return this.http.get<Vacina[]>(this.API + '/findByNome', { params: par });
+    const params = new HttpParams().set('nome', nome);
+    return this.http.get<Vacina[]>(`${this.API}/search`, { params });
   }
-
+  create(vacina: Vacina): Observable<string> {
+    return this.http.post<string>(this.API, vacina, { responseType: 'text' as 'json' });
+  }
+  update(vacinaOrId: any, maybeVacina?: any): Observable<string> {
+    let id: number;
+    let vacina: Vacina;
+    if (typeof vacinaOrId === 'number') { id = vacinaOrId as number; vacina = maybeVacina as Vacina; }
+    else { vacina = vacinaOrId as Vacina; id = maybeVacina as number; }
+    return this.http.put<string>(`${this.API}/${id}`, vacina, { responseType: 'text' as 'json' });
+  }
+  // compatibility
+  save(vacina: Vacina): Observable<string> { return this.create(vacina); }
   deleteById(id: number): Observable<string> {
-    return this.http.delete<string>(this.API + '/deleteById/' + id, { responseType: 'text' as 'json' });
-  }
-
-  save(vacina: Vacina): Observable<string> {
-    return this.http.post<string>(this.API + '/save', vacina, { responseType: 'text' as 'json' });
-  }
-
-  update(vacina: Vacina, id: number): Observable<string> {
-    return this.http.put<string>(this.API + '/update/' + id, vacina, { responseType: 'text' as 'json' });
+    return this.http.delete<string>(`${this.API}/${id}`, { responseType: 'text' as 'json' });
   }
 }

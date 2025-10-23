@@ -14,13 +14,14 @@
                                     aria-describedby="button-addon2" />
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="alinharADireita">
-                                <a (click)="new()" class="btn btn-success btn-rounded" mdbRippled>
-                                    <i class="fas fa-plus fa-sm"></i> Novo
-                                </a>
+                            <div class="col-6">
+                                <div class="alinharADireita">
+                                    <!-- Esconder botão Novo quando estiver em modo modal (apenas seleção) -->
+                                    <a *ngIf="!modoModal" (click)="new()" class="btn btn-success btn-rounded" mdbRippled>
+                                        <i class="fas fa-plus fa-sm"></i> Novo
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                     <table class="table table-striped">
@@ -40,14 +41,21 @@
                                 <td>{{tutor.nome}}</td>
                                 <td>{{tutor.cpf}}</td>
                                 <td>{{tutor.telefone}}</td>
-                                <td class="alinharADireita">
-                                    <a (click)="edit(tutor)" class="btn btn-primary btn-rounded" mdbRippled>
-                                        <i class="fas fa-pencil fa-sm"></i>
-                                    </a>
-                                    <button (click)="delete(tutor)" class="btn btn-danger btn-rounded" mdbRippled>
-                                        <i class="fas fa-trash fa-sm"></i>
-                                    </button>
-                                </td>
+                                    <td class="alinharADireita">
+                                        <!-- Mostrar apenas Selecionar quando usado em modal -->
+                                        <button *ngIf="modoModal" (click)="selecionar(tutor)" class="btn btn-primary btn-rounded me-1" mdbRippled>
+                                            Selecionar
+                                        </button>
+                                        <!-- Botões de editar/excluir aparecem apenas no modo normal -->
+                                        <ng-container *ngIf="!modoModal">
+                                            <a (click)="edit(tutor)" class="btn btn-primary btn-rounded" mdbRippled>
+                                                <i class="fas fa-pencil fa-sm"></i>
+                                            </a>
+                                            <button (click)="delete(tutor)" class="btn btn-danger btn-rounded" mdbRippled>
+                                                <i class="fas fa-trash fa-sm"></i>
+                                            </button>
+                                        </ng-container>
+                                    </td>
                             </tr>
                             }
                         </tbody>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Medico } from '../../../../models/medico';
 import { MedicoService } from '../../../../services/medico';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-medicos-list',
   standalone: true,
-  imports: [FormsModule, MedicoFormComponent, MdbModalModule],
+  imports: [CommonModule, FormsModule, MedicoFormComponent, MdbModalModule],
   templateUrl: './medico-list.component.html',
   styleUrl: './medico-list.component.scss',
 })
@@ -39,7 +40,7 @@ export class MedicosListComponent {
         this.lista = listaRetornada;
       },
       error: (erro) => {
-        notifyError(erro.error);
+        notifyError(erro);
       }
     });
   }
@@ -58,7 +59,7 @@ export class MedicosListComponent {
             this.findAll();
           },
           error: (erro) => {
-            notifyError(erro.error);
+            notifyError(erro);
           }
         });
       }
@@ -71,7 +72,7 @@ export class MedicosListComponent {
         this.lista = lista;
       },
       error: (erro) => {
-        Swal.fire(erro.error, '', 'error');
+        notifyError(erro);
       }
     });
   }
@@ -89,5 +90,10 @@ export class MedicosListComponent {
   meuEventoTratamento(mensagem: any) {
     this.findAll();
     this.modalRef.close();
+  }
+
+  selecionar(medico: Medico) {
+    this.meuEvento.emit(medico);
+    try { this.modalRef.close(); } catch (e) { }
   }
 }
